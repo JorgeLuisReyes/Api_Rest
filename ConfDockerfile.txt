@@ -1,0 +1,58 @@
+***** Paso 1 *****
+1) Corre el comando en la rais del proyecto para generar el Jar o War
+./mvnw clean package -DskipTests
+
+***** Paso 2 *****
+2) crea un archivo sin extencion en la rais del proyecto con el nombre Dockerfile
+
+***** Paso 3 *****
+pega estos comandos dentro
+
+# Usar una imagen base de Java 17
+FROM openjdk:17-jdk-alpine
+
+# Crear un directorio para la aplicación
+WORKDIR /app
+
+# Copiar el archivo JAR de la aplicación al contenedor
+COPY target/tu-aplicacion-0.0.1-SNAPSHOT.jar app.jar
+
+# Exponer el puerto que usará la aplicación Spring Boot
+EXPOSE 8080
+
+# Comando para ejecutar la aplicación
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
+***** Paso 4 *****
+crea en la rais del proyecto un archivo docker-compose.yml
+
+***** Paso 5 *****
+pega estos comandos dentro
+
+version: '1.0'
+services:
+ app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/tu_base_de_datos
+      - SPRING_DATASOURCE_USERNAME=tu_usuario
+      - SPRING_DATASOURCE_PASSWORD=tu_contraseña
+ db:
+    image: postgres:16
+    ports:
+      - "5433:5433"
+    environment:
+      - POSTGRES_DB=tu_base_de_datos
+      - POSTGRES_USER=tu_usuario
+      - POSTGRES_PASSWORD=tu_contraseña
+
+***** Paso 6 *****
+6) navega a la raíz de tu proyecto en la terminal y ejecuta el comando:
+
+docker-compose up
+
+Este comando iniciará todos los servicios definidos en docker-compose.yml, permitiéndote ejecutar tu aplicación Spring Boot y cualquier otro servicio necesario en contenedores Docker

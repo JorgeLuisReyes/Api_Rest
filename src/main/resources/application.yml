@@ -1,0 +1,72 @@
+# Spring configuration
+spring:
+  application:
+    name: token
+  # Database connection information
+  datasource:
+    url: jdbc:postgresql://localhost:5433/Demo
+    username: postgres
+    password: elite
+  jpa:
+    # JPA and Hibernate configuration
+    show-sql: true
+    hibernate:
+      #none o update
+      ddl-auto: none
+server:
+  # Server port
+  port: 9090
+  error:
+    # limita los datos en el postman never o always
+    include-stacktrace: never
+# Configuration Token Jwt
+token:
+  jwt:
+    # Activa o desactiva la seguridad del Token en los endpoint
+    security:
+      # true o false
+      enabled: false
+    # Zona horaria
+    timezone: "America/Caracas"
+    # Ruta principal del proyecto# Ruta principal del proyecto
+    issuer: "www.bancoexterior.com.ve"
+    token:
+      auth:
+        path: "/api/token"
+      # firma para la clave secreta
+      secret: "Informacion del token"
+      # Vida del token
+      expires-in: 120
+    excluded:
+      # endpoint sin seuridad
+      path: "/prueba/uno,/prueba/dos"
+      
+      
+          
+
+
+      
+            
+            
+            
+            
+            
+
+
+        
+        
+        
+        
+          
+
+        
+        
+        
+        
+        
+        
+
+
+    
+    
+      

@@ -1,0 +1,20 @@
+version: '1.0'
+services:
+ app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/tu_base_de_datos
+      - SPRING_DATASOURCE_USERNAME=tu_usuario
+      - SPRING_DATASOURCE_PASSWORD=tu_contraseña
+ db:
+    image: postgres:16
+    ports:
+      - "5433:5433"
+    environment:
+      - POSTGRES_DB=tu_base_de_datos
+      - POSTGRES_USER=tu_usuario
+      - POSTGRES_PASSWORD=tu_contraseña
